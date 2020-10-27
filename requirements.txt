@@ -1,3 +1,8 @@
 pillow
 pyglm
 numpy
+pyquaternion
+pyqt5
+pyqt5-sip
+pyqtwebengine
+pyopengl

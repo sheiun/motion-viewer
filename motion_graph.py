@@ -765,15 +765,15 @@ def progress_cb(factor):
 if __name__ == "__main__":
     from skeleton import *
     motion0 = AnimatedSkeleton()
-    motion0.load_from_file("data\\02\\02_02.bvh")
-    #motion1 = AnimatedSkeleton()
-    #motion1.load_from_file("data\\02\\02_03.bvh")
+    motion0.load_from_file("data/02/02_02.bvh")
+    motion1 = AnimatedSkeleton()
+    motion1.load_from_file("data/02/02_03.bvh")
     motion2 = AnimatedSkeleton()
-    motion2.load_from_file("data\\16\\16_57.bvh")
+    motion2.load_from_file("data/09/09_01.bvh")
 
     graph = MotionGraph(30)
     graph.add_motion(motion0)
-    #graph.add_motion(motion1)
+    graph.add_motion(motion1)
     graph.add_motion(motion2)
 
     import time

@@ -38,9 +38,9 @@ class MotionViewerApp:
         self._motion_graph_player = MotionGraphPlayer()
         self._prev_edge = None 
 
-    def run(self):
+    def run(self, files):
         self._main_window.show()
-        self.create_motion_graph(['data/02/02_02.bvh', 'data/02/02_04.bvh'])
+        self.create_motion_graph(files)
         sys.exit(self._app.exec_())
 
     def load_bvh(self, fn):
@@ -62,7 +62,7 @@ class MotionViewerApp:
                 print("[DEBUG] Building MotionGraph ({:.2f})%".format(factor * 100.0))
 
             self._motion_graph.build(progress_cb)
-            self._motion_graph.serialize()
+            # self._motion_graph.serialize()
 
         if GENERATE_GROUNDTRUTH_MOTION_GRAPH:
             self._generate_groundtruth_data()
@@ -132,4 +132,4 @@ class MotionViewerApp:
 
 if __name__ == "__main__":
     app = MotionViewerApp()
-    app.run()
+    app.run(['data/xx/02_01.bvh', 'data/xx/02_02.bvh'])

@@ -104,13 +104,15 @@ class AnimatedSkeleton:
                 bvh_root, bvh_frame_time, bvh_frames = bvh.import_bvh(path)
 
                 def process_bvh_rec(frame, node):
+                    # XXX: remove z axis
                     rotx = bvh_frames[frame][node.rotx_idx] if node.rotx_idx is not None else None
                     roty = bvh_frames[frame][node.roty_idx] if node.roty_idx is not None else None
                     rotz = bvh_frames[frame][node.rotz_idx] if node.rotz_idx is not None else None
-
+                    # rotz = 0.0
                     posx = bvh_frames[frame][node.offx_idx] if node.offx_idx is not None else 0
                     posy = bvh_frames[frame][node.offy_idx] if node.offy_idx is not None else 0
                     posz = bvh_frames[frame][node.offz_idx] if node.offz_idx is not None else 0
+                    posz = 0.0
 
                     # Creating internal node representation
                     skeleton_node = AnimatedSkeleton.Node(node.name, self._find_type_bvh(node.name))
@@ -322,7 +324,7 @@ class AnimatedSkeleton:
             c = math.cos(a)
             s = math.sin(a)
             axis = glm.normalize(v)
-            tmp = glm.vec4((1.0 - c) * axis)           
+            tmp = glm.vec3((1.0 - c) * axis)           
             R = glm.mat4(c + ((1) - c)      * axis[0]     * axis[0],
             ((1) - c) * axis[0] * axis[1] + s * axis[2],
             ((1) - c) * axis[0] * axis[2] - s * axis[1],
@@ -376,8 +378,8 @@ class AnimatedSkeleton:
 
         def gather_positions_rec(node, parent_transform):
             transform = parent_transform * node._transform
-            trans = transform[3, :3]
-            self._all_positions.append(np.asarray(trans).ravel())
+            trans = np.asarray(transform)[3, :3]
+            self._all_positions.append(trans.ravel())
 
             for child in node.children:
                 # TODO(edoardo): Is this copy really needed?
